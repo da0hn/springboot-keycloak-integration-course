@@ -38,11 +38,12 @@ services:
       retries: 20
     restart: on-failure:20
     depends_on:
-      - keycloak-db
+      keycloak-db:
+        condition: service_healthy
     ports:
       - "5501:8080"
     volumes:
-        - D:/opt/keycloak/data:/opt/keycloak/data
+      - D:/opt/keycloak/data:/opt/keycloak/data
     networks:
       - keycloak-network
 networks:
