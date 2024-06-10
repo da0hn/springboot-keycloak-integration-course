@@ -1,3 +1,24 @@
+server:
+  address: 0.0.0.0
+  port: 8080
 spring:
   application:
     name: keycloak-course
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: ${KEYCLOAK_CLIENT_ID:client-spring}
+            client-secret: ${KEYCLOAK_CLIENT_SECRET:N42VwXoqtaZ9Di1IzHlkvezTrbBxoLGm}
+            authorization-grant-type: authorization_code
+            scope: openid
+        provider:
+          keycloak:
+            issuer-uri: ${KEYCLOAK_SERVICE:http://localhost:5501}/auth/realms/realm-spring-api
+            user-name-attribute: preferred_username
+keycloak:
+  url: ${KEYCLOAK_SERVICE:http://localhost:5501}
+  realm: ${KEYCLOAK_REALM:realm-spring-api}
+  client-id: ${KEYCLOAK_CLIENT_ID:client-spring}
+  client-secret: ${KEYCLOAK_CLIENT_SECRET:N42VwXoqtaZ9Di1IzHlkvezTrbBxoLGm}
