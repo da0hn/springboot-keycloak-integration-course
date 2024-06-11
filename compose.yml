@@ -32,11 +32,6 @@ services:
       DB_SCHEMA: keycloak
       DB_USER: user_keycloak
       DB_PASSWORD: user_keycloak_password
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080/health/ready" ]
-      interval: 20s
-      timeout: 10s
-      retries: 20
     restart: on-failure:20
     depends_on:
       keycloak-db:
