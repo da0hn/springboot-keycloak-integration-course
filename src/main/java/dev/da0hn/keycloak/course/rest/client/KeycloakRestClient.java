@@ -10,7 +10,7 @@ import org.springframework.web.service.annotation.PostExchange;
 public interface KeycloakRestClient {
 
   @PostExchange(
-    value = "/auth/realms/${keycloak.realm}/protocol/openid-connect/token",
+    url = "/auth/realms/${keycloak.realm}/protocol/openid-connect/token",
     contentType = MediaType.APPLICATION_FORM_URLENCODED_VALUE
   )
   ResponseEntity<TokenResponsePayload> getToken(
