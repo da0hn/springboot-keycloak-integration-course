@@ -17,8 +17,10 @@ spring:
           keycloak:
             issuer-uri: ${KEYCLOAK_SERVICE:http://localhost:5501}/auth/realms/realm-spring-api
             user-name-attribute: preferred_username
+            jwk-set-uri: ${KEYCLOAK_SERVICE:http://localhost:5501}/auth/realms/realm-spring-api/protocol/openid-connect/certs
 keycloak:
   url: ${KEYCLOAK_SERVICE:http://localhost:5501}
   realm: ${KEYCLOAK_REALM:realm-spring-api}
   client-id: ${KEYCLOAK_CLIENT_ID:client-spring}
   client-secret: ${KEYCLOAK_CLIENT_SECRET:N42VwXoqtaZ9Di1IzHlkvezTrbBxoLGm}
+  jwk-set-uri: ${KEYCLOAK_SERVICE:http://localhost:5501}/auth/realms/realm-spring-api/protocol/openid-connect/certs

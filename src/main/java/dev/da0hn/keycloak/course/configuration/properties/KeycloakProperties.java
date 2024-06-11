@@ -7,6 +7,8 @@ public record KeycloakProperties(
   String clientId,
   String clientSecret,
   String realm,
-  String url
+  String url,
+  String jwkSetUri
+
 ) {
 }
