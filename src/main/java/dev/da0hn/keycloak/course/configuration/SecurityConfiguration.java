@@ -20,6 +20,7 @@ public class SecurityConfiguration {
         authorizeRequests ->
           authorizeRequests
             .requestMatchers("/auth/token").permitAll()
+            .requestMatchers("/auth/refresh-token").permitAll()
             .anyRequest().authenticated()
       );
 

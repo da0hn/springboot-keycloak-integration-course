@@ -1,8 +1,11 @@
 package dev.da0hn.keycloak.course.configuration;
 
 import dev.da0hn.keycloak.course.configuration.properties.KeycloakProperties;
+import dev.da0hn.keycloak.course.exceptions.InternalErrorKeycloakException;
 import dev.da0hn.keycloak.course.rest.client.KeycloakRestClient;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +16,7 @@ import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
+@Slf4j
 @Configuration
 @AllArgsConstructor
 public class RestClientConfiguration {
@@ -25,10 +29,12 @@ public class RestClientConfiguration {
       .baseUrl(this.keycloakProperties.url())
       .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .defaultStatusHandler(HttpStatusCode::is4xxClientError, (req, res) -> {
-        throw new RuntimeException("Ocorreu um erro ao chamar o serviço de autenticação");
+        log.error("Ocorreu um erro ao chamar {} {}", req.getURI(), req.getURI());
+        throw new BadRequestException("Ocorreu um erro ao chamar o serviço de autenticação");
       })
       .defaultStatusHandler(HttpStatusCode::is5xxServerError, (req, res) -> {
-        throw new RuntimeException("Ocorreu um erro no servidor ao chamar o serviço de autenticação");
+        log.error("Ocorreu um erro ao chamar {} {}", req.getURI(), req.getURI());
+        throw new InternalErrorKeycloakException("Ocorreu um erro no servidor ao chamar o serviço de autenticação");
       })
       .build();
 
